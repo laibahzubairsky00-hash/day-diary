@@ -1,17 +1,27 @@
 import CustomButton from "@/src/components/CustomButton";
 import CustomTextInput from "@/src/components/CustomTextInput/CustomTextInput";
+import { GlobalContext } from "@/src/service/GlobalContext";
 import { COLORS } from "@/src/utils/theme";
-import React, { useState } from "react";
-import { Image, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import React, { useContext, useState } from "react";
+import { Image, StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const SignInScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const signInOnPress = () => {
-    alert(email);
+  const { allUser, setUser } = useContext(GlobalContext);
+  const signInOnPress = async () => {
+    console.log(allUser);
+    const userData = allUser.find(
+      (item) => item.email.toLowerCase() == email.toLocaleLowerCase()
+    );
+    console.log(userData);
+    if (userData.password == password) {
+      alert("sign in success");
+    }
   };
-
+  const navigation = useNavigation<any>();
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.backgroundColor }}>
       <Image
@@ -38,6 +48,15 @@ const SignInScreen = () => {
           signInOnPress();
         }}
       />
+      <Text
+        style={{ backgroundColor: "yellow" }}
+        onPress={() => {
+          navigation.navigate("SignUpScreen");
+        }}
+      >
+        {" "}
+        sign up
+      </Text>
     </SafeAreaView>
   );
 };

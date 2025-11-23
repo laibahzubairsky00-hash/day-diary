@@ -2,11 +2,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet } from "react-native";
 import RootStack from "./src/navigation/RootStack";
+import { GlobalProvider } from "./src/service/GlobalContext";
 
 const App = () => {
   return (
     <NavigationContainer>
-      <RootStack />
+      <GlobalProvider>
+        <RootStack />
+      </GlobalProvider>
     </NavigationContainer>
   );
 };
