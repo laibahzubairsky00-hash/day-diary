@@ -15,7 +15,15 @@ const SignUpScreen = () => {
   const navigation = useNavigation<any>();
   const signUpOnPress = async () => {
     try {
-      console.log(allUser);
+      if (!email || !password || !userName) {
+        alert("Please fill all fields");
+        return;
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address");
+        return;
+      }
       const allUserValue = [...allUser, { email, password, userName }];
       setAllUser(allUserValue);
       console.log(allUserValue);

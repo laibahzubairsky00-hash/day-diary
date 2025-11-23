@@ -1,14 +1,17 @@
 import Storage from "expo-storage";
-import React, { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }: any) => {
-  const [user, setUser] = useState(null);
-  const [allUser, setAllUser] = useState([]);
+  const [user, setUser] = useState(null); // this is used for the current logged in user which is object
+  const [allUser, setAllUser] = useState([]); // this is used to store all registered users which will be removed after integrating with backend which us array
+
   const getAllUserData = async () => {
     try {
       const userDataFromStorage = await Storage.getItem({ key: "allUserData" });
+      console.log(userDataFromStorage, "userDataFromStorage");
+
       if (userDataFromStorage !== null) {
         const parsedItem = JSON.parse(userDataFromStorage);
         setAllUser(parsedItem);
@@ -20,6 +23,7 @@ export const GlobalProvider = ({ children }: any) => {
   const getCurrentUserData = async () => {
     try {
       const getCurrentUserInfo = await Storage.getItem({ key: "currentUser" });
+      console.log(getCurrentUserInfo, "getCurrentUserInfo");
       if (getCurrentUserInfo !== null) {
         const parsedItem = JSON.parse(getCurrentUserInfo);
         setUser(parsedItem);
@@ -28,6 +32,7 @@ export const GlobalProvider = ({ children }: any) => {
       console.log("error on getting user data", error);
     }
   };
+
   useEffect(() => {
     getAllUserData();
     getCurrentUserData();
