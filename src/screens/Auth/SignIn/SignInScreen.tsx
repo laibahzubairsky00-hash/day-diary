@@ -3,6 +3,7 @@ import CustomTextInput from "@/src/components/CustomTextInput/CustomTextInput";
 import { GlobalContext } from "@/src/service/GlobalContext";
 import { COLORS } from "@/src/utils/theme";
 import { useNavigation } from "@react-navigation/native";
+import Storage from "expo-storage";
 import React, { useContext, useState } from "react";
 import { Image, StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,13 +13,35 @@ const SignInScreen = () => {
   const [password, setPassword] = useState("");
   const { allUser, setUser } = useContext(GlobalContext);
   const signInOnPress = async () => {
+    console.log(typeof email, typeof password);
+    if (!email) {
+      alert("enter email");
+      return;
+    }
+
+    if (!password) {
+      alert("enter pass");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address");
+      return;
+    }
     console.log(allUser);
     const userData = allUser.find(
-      (item) => item.email.toLowerCase() == email.toLocaleLowerCase()
+      (item) => item.email.toLowerCase() == email.toLowerCase()
     );
     console.log(userData);
     if (userData.password == password) {
       alert("sign in success");
+      await Storage.setItem({
+        key: "currentUserData",
+        value: userData,
+      });
+      setUser(userData);
+    } else {
+      alert("incorrect pass");
     }
   };
   const navigation = useNavigation<any>();

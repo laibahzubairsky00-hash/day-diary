@@ -1,21 +1,11 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React from "react";
-import SignInScreen from "../screens/Auth/SignIn/SignInScreen";
-import SignUpScreen from "../screens/Auth/SignUp/SignUpScreen";
-import BottomTab from "./BottomTab";
+import React, { useContext } from "react";
+import { GlobalContext } from "../service/GlobalContext";
+import AuthStack from "./AuthStack";
+import MainStack from "./MainStack";
 
 const RootStack = () => {
-  const stack = createNativeStackNavigator();
-  return (
-    <stack.Navigator
-      screenOptions={{ headerShown: false }}
-      initialRouteName="SignInScreen"
-    >
-      <stack.Screen component={BottomTab} name="BottomTab" />
-      <stack.Screen component={SignInScreen} name="SignInScreen" />
-      <stack.Screen component={SignUpScreen} name="SignUpScreen" />
-    </stack.Navigator>
-  );
+  const { user } = useContext(GlobalContext);
+  return <>{user ? <MainStack /> : <AuthStack />} </>;
 };
 
 export default RootStack;

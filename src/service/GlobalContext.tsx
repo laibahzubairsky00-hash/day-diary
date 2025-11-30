@@ -22,7 +22,9 @@ export const GlobalProvider = ({ children }: any) => {
   };
   const getCurrentUserData = async () => {
     try {
-      const getCurrentUserInfo = await Storage.getItem({ key: "currentUser" });
+      const getCurrentUserInfo = await Storage.getItem({
+        key: "currentUserData",
+      });
       console.log(getCurrentUserInfo, "getCurrentUserInfo");
       if (getCurrentUserInfo !== null) {
         const parsedItem = JSON.parse(getCurrentUserInfo);
