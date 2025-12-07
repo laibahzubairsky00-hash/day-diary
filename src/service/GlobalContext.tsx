@@ -13,7 +13,7 @@ export const GlobalProvider = ({ children }: any) => {
       console.log(userDataFromStorage, "userDataFromStorage");
 
       if (userDataFromStorage !== null) {
-        const parsedItem = JSON.parse(userDataFromStorage);
+        const parsedItem = await JSON.parse(userDataFromStorage);
         setAllUser(parsedItem);
         console.log(userDataFromStorage);
       }
@@ -28,7 +28,7 @@ export const GlobalProvider = ({ children }: any) => {
       });
       console.log(getCurrentUserInfo, "getCurrentUserInfo");
       if (getCurrentUserInfo !== null) {
-        const parsedItem = JSON.parse(getCurrentUserInfo);
+        const parsedItem = await JSON.parse(getCurrentUserInfo);
         setUser(parsedItem);
       }
     } catch (error) {

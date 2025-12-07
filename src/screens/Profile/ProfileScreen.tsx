@@ -1,14 +1,19 @@
 import CustomButton from "@/src/components/CustomButton";
 import CustomTextInput from "@/src/components/CustomTextInput/CustomTextInput";
+import ImagePickerModal from "@/src/components/modals/ImagePickerModal";
 import { GlobalContext } from "@/src/service/GlobalContext";
 import Storage from "expo-storage";
-import React, { useContext, useState } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { useContext, useState } from "react";
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const ProfileScreen = () => {
   const { user, setUser } = useContext(GlobalContext);
   const [profileName, setProfileName] = useState(user.userName);
+  const [isImagePickerVisible, setIsImagePickerVisible] = useState(false);
+  const [imageUri, setImageUri] = useState("");
+  const [counter, setCounter] = useState(0);
+
   // console.log(user);
   const onPressSave = () => {
     console.log(user);
@@ -21,11 +26,29 @@ const ProfileScreen = () => {
   };
   return (
     <SafeAreaView>
+      {/* {isImagePickerVisible && ( */}
+      <ImagePickerModal
+        visible={isImagePickerVisible}
+        setVisible={setIsImagePickerVisible}
+        setImageUri={setImageUri}
+      />
+      {/* )} */}
+
       <View>
-        <Image
-          style={styles.image}
-          source={require("../../assets/AppIcon.png")}
-        />
+        <TouchableOpacity
+          onPress={() => {
+            // c++;
+
+            setIsImagePickerVisible(true);
+          }}
+        >
+          <Image
+            style={styles.image}
+            source={
+              imageUri ? { uri: imageUri } : require("../../assets/AppIcon.png")
+            }
+          />
+        </TouchableOpacity>
         <CustomTextInput
           placeHolderText="Enter Name"
           value={profileName}
