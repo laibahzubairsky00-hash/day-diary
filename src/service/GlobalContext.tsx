@@ -15,6 +15,7 @@ export const GlobalProvider = ({ children }: any) => {
       if (userDataFromStorage !== null) {
         const parsedItem = JSON.parse(userDataFromStorage);
         setAllUser(parsedItem);
+        console.log(userDataFromStorage);
       }
     } catch (error) {
       console.log("error on getting user data", error);

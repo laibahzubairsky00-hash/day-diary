@@ -5,7 +5,7 @@ import MainStack from "./MainStack";
 
 const RootStack = () => {
   const { user } = useContext(GlobalContext);
-  return <>{user ? <MainStack /> : <AuthStack />} </>;
+  return <>{user ? <MainStack /> : <AuthStack />}</>;
 };
 
 export default RootStack;

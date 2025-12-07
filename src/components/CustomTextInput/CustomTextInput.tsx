@@ -10,12 +10,14 @@ const CustomTextInput = ({
   isPassword,
   value,
   setValue,
+  isEditable = true,
 }: {
-  title: string;
+  title?: string;
   placeHolderText: string;
   isPassword?: boolean;
   value: string;
   setValue: any;
+  isEditable?: boolean;
 }) => {
   const [showPassword, setShowPassword] = useState(isPassword);
   return (
@@ -28,6 +30,7 @@ const CustomTextInput = ({
           secureTextEntry={showPassword}
           onChangeText={setValue}
           value={value}
+          editable={isEditable}
         />
         {isPassword && (
           <AntDesign

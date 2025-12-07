@@ -1,22 +1,9 @@
-import CustomButton from "@/src/components/CustomButton";
-import { GlobalContext } from "@/src/service/GlobalContext";
-import Storage from "expo-storage";
-import React, { useContext } from "react";
-import { StyleSheet, View } from "react-native";
+import React from "react";
+import { StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const HomeScreen = () => {
-  const { setUser } = useContext(GlobalContext);
-  const onPressLogOut = async () => {
-    await Storage.removeItem({
-      key: "currentUserData",
-    });
-    setUser(null);
-  };
-  return (
-    <View>
-      <CustomButton buttonName="LogOut" onPress={onPressLogOut} />
-    </View>
-  );
+  return <SafeAreaView></SafeAreaView>;
 };
 
 export default HomeScreen;
